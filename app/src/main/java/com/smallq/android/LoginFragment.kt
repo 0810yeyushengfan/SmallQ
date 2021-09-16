@@ -58,6 +58,16 @@ class LoginFragment : Fragment() {
                 binding.layoutContext.visibility=View.VISIBLE
             }
         }
+        binding.buttonLogin.setOnClickListener{
+            val fragmentManager=activity!!.supportFragmentManager
+            val fragment=MainFragment()
+            //替换掉FrameLayout中现有的Fragment
+            val fragmentTransaction=fragmentManager.beginTransaction()
+            fragmentTransaction.replace(R.id.fragment_container,fragment)
+            //将这次切换放入后退栈中，这样可以在单击后退键时自动返回上一个页面
+            fragmentTransaction.addToBackStack("login")
+            fragmentTransaction.commit()
+        }
     }
 
     override fun onDestroyView() {

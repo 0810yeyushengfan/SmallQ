@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MainFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/contentLayout"
+        android:background="@android:color/white">
+    <!--导航栏-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:orientation="horizontal"
+        android:background="@drawable/nav_bar_bk">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/headImage"
+            app:srcCompat="?android:attr/textSelectHandle"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/textView5"
+            android:gravity="center_horizontal"
+            android:text="标题"
+            android:textSize="18dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+"
+            android:textSize="36dp"
+            android:id="@+id/textViewPopMenu"/>
+
+    </LinearLayout>
+    <!--主内容区-->
+    <com.smallq.android.QQViewPager
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/viewPager">
+    </com.smallq.android.QQViewPager>
+    <!--Tab控件-->
+    <com.google.android.material.tabs.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        app:tabBackground="@drawable/tab_bar_bk"
+        app:tabIndicatorColor="@android:color/transparent"
+        app:tabSelectedTextColor="@android:color/holo_blue_bright"
+        android:id="@+id/tabLayout">
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="left"
+            android:icon="@drawable/contacts_normal"/>
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="center"
+            android:icon="@drawable/message_normal" />
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="right"
+            android:icon="@drawable/space_normal"/>
+    </com.google.android.material.tabs.TabLayout>
+
+</LinearLayout>
+</FrameLayout>
