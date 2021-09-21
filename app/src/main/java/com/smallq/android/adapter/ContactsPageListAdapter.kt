@@ -54,6 +54,23 @@ class ContactsPageListAdapter(tree: ListTree?) :
         val view=viewHoler!!.itemView
         //获取这一行在树对象中对应的节点
         val node=tree.getNodeByPlaneIndex(position)
+        when{
+            node.layoutResId==R.layout.contacts_group_item->{
+                //是group群组节点
+                val info=node.data as GroupInfo
+                val groupViewHolder=viewHoler as GroupViewHolder
+                groupViewHolder.textViewTitle.setText(info.title)
+                groupViewHolder.textViewCount.setText(info.onlineCount.toString()+"/"+node.childrenCount)
+            }
+            node.layoutResId==R.layout.contacts_contact_item->{
+                //是群组中的子项child节点
+                val info=node.data as ContactInfo
+                val contactViewHolder=viewHoler as ContactViewHolder
+                contactViewHolder.imageViewHead.setImageBitmap(info.avatarURL)
+                contactViewHolder.textViewTitle.setText(info.name)
+                contactViewHolder.textViewDetail.setText(info.status)
+            }
+        }
 
 
 
