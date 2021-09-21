@@ -42,12 +42,18 @@
 
     </LinearLayout>
     <!--主内容区-->
-    <com.smallq.android.QQViewPager
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/viewPager">
-    </com.smallq.android.QQViewPager>
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/refreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+            android:layout_weight="1">
+            <com.smallq.android.QQViewPager
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:id="@+id/viewPager">
+            </com.smallq.android.QQViewPager>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     <!--Tab控件-->
     <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"

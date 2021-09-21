@@ -237,6 +237,11 @@ class MainFragment :Fragment(){
                 animatorSet.start()
             }
         }
+        //制作下拉刷新效果
+        binding.refreshLayout.setOnRefreshListener {
+            //刷新完成，隐藏UFO
+            binding.refreshLayout.isRefreshing=false
+        }
 
     }
 
