@@ -1,0 +1,22 @@
+<component name="libraryTable">
+  <library name="Gradle: com.edu:recyclerlisttreeview:0.1.5@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3124fc7a88df2d3fc050ba8d70bf2cc8/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3124fc7a88df2d3fc050ba8d70bf2cc8/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/08b77492ff018e8b09a99ab63a893f18/jetified-recyclerlisttreeview-0.1.5/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/08b77492ff018e8b09a99ab63a893f18/jetified-recyclerlisttreeview-0.1.5/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/08b77492ff018e8b09a99ab63a893f18/jetified-recyclerlisttreeview-0.1.5/AndroidManifest.xml" />
+      <root url="file://$APPLICATION_HOME_DIR$/gradle/caches/transforms-2/files-2.1/32ac0363160b2ad7a568533c676ebe2a/jetified-recyclerlisttreeview-0.1.5/AndroidManifest.xml" />
+      <root url="file://$APPLICATION_HOME_DIR$/gradle/caches/transforms-2/files-2.1/32ac0363160b2ad7a568533c676ebe2a/jetified-recyclerlisttreeview-0.1.5/res" />
+      <root url="jar://$APPLICATION_HOME_DIR$/gradle/caches/transforms-2/files-2.1/32ac0363160b2ad7a568533c676ebe2a/jetified-recyclerlisttreeview-0.1.5/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.edu/recyclerlisttreeview/0.1.5/478b51d9445a6d4dcf956ff6a19de1e2b3d39129/recyclerlisttreeview-0.1.5-javadoc.jar!/" />
+      <root url="jar://$APPLICATION_HOME_DIR$/gradle/caches/modules-2/files-2.1/com.edu/recyclerlisttreeview/0.1.5/478b51d9445a6d4dcf956ff6a19de1e2b3d39129/recyclerlisttreeview-0.1.5-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.edu/recyclerlisttreeview/0.1.5/f894a73690a4306845883508c958f0f7dbc92e1b/recyclerlisttreeview-0.1.5-sources.jar!/" />
+      <root url="jar://$APPLICATION_HOME_DIR$/gradle/caches/modules-2/files-2.1/com.edu/recyclerlisttreeview/0.1.5/f894a73690a4306845883508c958f0f7dbc92e1b/recyclerlisttreeview-0.1.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
