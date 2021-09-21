@@ -4,7 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import android.app.Activity
-import com.example.niu.qqapp.R
+import com.smallq.android.R
 
 class MessagePageListAdapter() :
     RecyclerView.Adapter<MessagePageListAdapter.MyViewHolder>() {

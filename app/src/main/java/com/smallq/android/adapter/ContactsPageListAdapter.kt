@@ -1,5 +1,4 @@
-package com.example.niu.qqapp.adapter
-
+package com.smallq.android.adapter
 
 import android.graphics.Bitmap
 import android.view.LayoutInflater
@@ -7,10 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.example.niu.qqapp.R
 import com.niuedu.ListTree
 import com.niuedu.ListTreeAdapter
-
+//import com.niuedu.ListTree
+//import com.niuedu.ListTreeAdapter
+import com.smallq.android.R
 class ContactsPageListAdapter(tree: ListTree?) :
     ListTreeAdapter<ContactsPageListAdapter.BaseViewHolder>(tree) {
 

@@ -1,3 +1,4 @@
+package com.smallq.android
 
 import android.animation.Animator
 import android.animation.AnimatorSet
@@ -14,14 +15,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
-import com.example.niu.qqapp.R
-import com.example.niu.qqapp.adapter.ContactsPageListAdapter
 import com.example.niu.qqapp.adapter.MessagePageListAdapter
-import com.example.niu.qqapp.databinding.FragmentMainBinding
-import com.example.niu.qqapp.dip2px
 import com.google.android.material.tabs.TabLayout
 import com.niuedu.ListTree
-
+import com.smallq.android.adapter.ContactsPageListAdapter
+import com.smallq.android.databinding.FragmentMainBinding
 
 class MainFragment :Fragment(){
     private var _binding: FragmentMainBinding? = null
@@ -76,7 +74,7 @@ class MainFragment :Fragment(){
         //创建三个RecyclerView,分别对应QQ消息页，QQ联系人页，QQ空间页
         for(i in 0..2){
             if(i!=1){
-                listViews[i]= RecyclerView(context!!)
+            listViews[i]= RecyclerView(context!!)
             }else{
                 listViews[i]=createContactsPage() as ViewGroup
             }
@@ -103,7 +101,7 @@ class MainFragment :Fragment(){
                 when{
                     tab?.position===0 -> tab.setIcon(R.drawable.message_focus)
                     tab?.position===1 -> tab.setIcon(R.drawable.contacts_focus)
-                    else ->tab?.setIcon(R.drawable.spacs_focus)
+                    else ->tab?.setIcon(R.drawable.space_focus)
                 }
             }
 
@@ -119,14 +117,14 @@ class MainFragment :Fragment(){
                 when{
                     tab?.position===0 -> tab.setIcon(R.drawable.message_focus)
                     tab?.position===1 -> tab.setIcon(R.drawable.contacts_focus)
-                    else ->tab?.setIcon(R.drawable.spacs_focus)
+                    else ->tab?.setIcon(R.drawable.space_focus)
                 }
             }
         })
         binding.textViewPopMenu.setOnClickListener{
             //创建PopupWindow，用于承载气泡菜单
             val pop=PopupWindow(context)
-            pop.animationStyle=R.style.popoMenuAnim
+            pop.animationStyle=R.style.popupMenuAnim
             //设置窗口出现时获取焦点，这样在按下返回键时窗口才会消失
             pop.isFocusable=true
             //向Fragment容器(FrameLayout)中加入一个View作为上层容器和蒙板
@@ -166,7 +164,7 @@ class MainFragment :Fragment(){
             val drawerLayout=activity!!.layoutInflater.inflate(R.layout.drawer_layout,view as ViewGroup,false)
             //先计算一下消息页面中左边一排图像的大小，在页面构建器中设置的是dp，
             //在代码中只能用像素px，所以这里要换算一下，因为不同的屏幕分辨率，dp对应的px是不同的
-            val messageImageWidth= dip2px(context!!,60.0f)
+            val messageImageWidth= dipToPx(context!!,60.0f)
             //计算抽屉页面的宽度，根视图是FrameLayout，利用getWidth()获取它当前的宽度
             val drawerWidth=view.width-messageImageWidth
             //设置抽屉页面的宽度
@@ -249,7 +247,7 @@ class MainFragment :Fragment(){
         //创建集合(一棵树)
         val tree=ListTree()
         //创建组
-        val group1= ContactsPageListAdapter.GroupInfo("特别关心",0)
+        val group1=ContactsPageListAdapter.GroupInfo("特别关心",0)
         val group2=ContactsPageListAdapter.GroupInfo("我的好友",1)
         val group3=ContactsPageListAdapter.GroupInfo("朋友",0)
         val group4=ContactsPageListAdapter.GroupInfo("家人",0)

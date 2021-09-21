@@ -1,4 +1,4 @@
-package com.example.niu.qqapp
+package com.smallq.android
 
 import android.content.Context
 import android.util.AttributeSet

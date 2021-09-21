@@ -1,24 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="popupMenuAnim" parent="android:Animation">
+<!--        <item name="android:windowEnterAnimation">-->
+<!--            @anim/pop_menu_show-->
+<!--        </item>-->
+        <item name="android:windowExitAnimation">
+            @anim/pop_menu_hide
+        </item>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
     </style>
-
-    <style name="TabTitleAppearance" parent="TextAppearance.Design.Tab">
-        <item name="textAllCaps">false</item>
-        <item name="android:textAllCaps">false</item>
-        <!-- 注意这两个属性一定要写，缺一不可，否则显示不出图片！ -->
-    </style>
-
-    <style name="popoMenuAnim" parent="android:Animation">
-        <!--<item name="android:windowEnterAnimation">@anim/popo_menu_show</item>-->
-        <item name="android:windowExitAnimation">@anim/pop_menu_hide</item>
-    </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 </resources>

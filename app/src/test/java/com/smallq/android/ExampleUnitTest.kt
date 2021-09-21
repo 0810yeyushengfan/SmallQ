@@ -1,4 +1,4 @@
-package com.example.niu.qqapp
+package com.smallq.android
 
 import org.junit.Test
 

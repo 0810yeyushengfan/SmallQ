@@ -1,7 +1,5 @@
-package com.example.niu.qqapp
+package com.smallq.android
 
-
-import MainFragment
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationSet
 import android.view.animation.AnimationUtils
-import com.example.niu.qqapp.databinding.FragmentLoginBinding
+import com.smallq.android.databinding.FragmentLoginBinding
 
 
 class LoginFragment : Fragment() {
@@ -40,19 +38,19 @@ class LoginFragment : Fragment() {
             }
             binding.layoutHistory.addView(layoutItem)
         }
-        binding.textViewHistory.setOnClickListener {
-            if(binding.layoutHistory.visibility==View.INVISIBLE) {
-                binding.layoutContext.visibility = View.INVISIBLE
-                binding.layoutHistory.visibility = View.VISIBLE
-                //使用动画显示历史记录
-                val set=AnimationUtils.loadAnimation(context,R.anim.login_history_anim) as AnimationSet
-                binding.layoutHistory.startAnimation(set)
-            } else{
-                binding.layoutHistory.visibility=View.INVISIBLE
-                binding.layoutContext.visibility=View.VISIBLE
-            }
+            binding.textViewHistory.setOnClickListener {
+                if(binding.layoutHistory.visibility==View.INVISIBLE) {
+                    binding.layoutContext.visibility = View.INVISIBLE
+                    binding.layoutHistory.visibility = View.VISIBLE
+                    //使用动画显示历史记录
+                    val set=AnimationUtils.loadAnimation(context,R.anim.login_history_anim) as AnimationSet
+                    binding.layoutHistory.startAnimation(set)
+                } else{
+                    binding.layoutHistory.visibility=View.INVISIBLE
+                    binding.layoutContext.visibility=View.VISIBLE
+                }
 
-        }
+            }
 
         view.setOnClickListener{
             if(binding.layoutHistory.visibility==View.VISIBLE){
