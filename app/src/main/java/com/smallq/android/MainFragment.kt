@@ -3,6 +3,7 @@ package com.smallq.android
 import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Bundle
@@ -22,6 +23,14 @@ import com.smallq.android.adapter.ContactsPageListAdapter
 import com.smallq.android.databinding.FragmentMainBinding
 
 class MainFragment :Fragment(){
+
+    companion object{
+        //创建集合(一棵树)
+        private val tree=ListTree()
+        fun getContacts():ListTree{
+            return tree
+        }
+    }
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
     //创建一个数组，有三个元素，三个元素都初始化为空
@@ -74,7 +83,7 @@ class MainFragment :Fragment(){
         //创建三个RecyclerView,分别对应QQ消息页，QQ联系人页，QQ空间页
         for(i in 0..2){
             if(i!=1){
-            listViews[i]= RecyclerView(context!!)
+                listViews[i]= RecyclerView(context!!)
             }else{
                 listViews[i]=createContactsPage() as ViewGroup
             }
@@ -242,27 +251,18 @@ class MainFragment :Fragment(){
             //刷新完成，隐藏UFO
             binding.refreshLayout.isRefreshing=false
         }
-
     }
 
     //创建并初始化联系人页面并返回这个页面
     private fun createContactsPage():View{
         //创建联系人页面View
         val v=layoutInflater.inflate(R.layout.contacts_page_layout,null)
-        //创建集合(一棵树)
-        val tree=ListTree()
         //创建组
         val group1=ContactsPageListAdapter.GroupInfo("特别关心",0)
         val group2=ContactsPageListAdapter.GroupInfo("我的好友",1)
         val group3=ContactsPageListAdapter.GroupInfo("朋友",0)
         val group4=ContactsPageListAdapter.GroupInfo("家人",0)
         val group5=ContactsPageListAdapter.GroupInfo("同学",0)
-        //向树中添加组，组是树的根节点，它们的父结点为null
-        val groupNode1=tree.addNode(null,group1,R.layout.contacts_group_item)
-        val groupNode2=tree.addNode(null,group2,R.layout.contacts_group_item)
-        val groupNode3=tree.addNode(null,group3,R.layout.contacts_group_item)
-        val groupNode4=tree.addNode(null,group4,R.layout.contacts_group_item)
-        val groupNode5=tree.addNode(null,group5,R.layout.contacts_group_item)
         //创建“我的好友”组中的子结点即联系人数据
         //头像
         var bitmap=BitmapFactory.decodeResource(resources,R.drawable.contacts_normal)
@@ -270,14 +270,28 @@ class MainFragment :Fragment(){
         val contact1=ContactsPageListAdapter.ContactInfo(bitmap,"沐雨橙风","[在线],我是苏沐橙")
         //联系人2
         val contact2= ContactsPageListAdapter.ContactInfo(bitmap,"一叶知秋","[离线]我是叶修")
+        //向树中添加组，组是树的根节点，它们的父结点为null
         //添加两个联系人
-        tree.addNode(groupNode2,contact1,R.layout.contacts_contact_item)
-        tree.addNode(groupNode2,contact2,R.layout.contacts_contact_item)
+        if(tree.size()==0){//因为tree是MainFragment的伙伴对象(静态变量)，所以要先判断是否已经初始化过tree，如果tree中有节点，证明已经初始化过一次，不必再添加节点
+            val groupNode1=tree.addNode(null,group1,R.layout.contacts_group_item)
+            val groupNode2=tree.addNode(null,group2,R.layout.contacts_group_item)
+            val groupNode3=tree.addNode(null,group3,R.layout.contacts_group_item)
+            val groupNode4=tree.addNode(null,group4,R.layout.contacts_group_item)
+            val groupNode5=tree.addNode(null,group5,R.layout.contacts_group_item)
+            tree.addNode(groupNode2,contact1,R.layout.contacts_contact_item)
+            tree.addNode(groupNode2,contact2,R.layout.contacts_contact_item)
+        }
         //获取页面里的RecyclerView，为它创建Adapter
         val recyclerView:RecyclerView=v.findViewById(R.id.contactListView)
         recyclerView.layoutManager=LinearLayoutManager(context)
         val contactsAdapter = ContactsPageListAdapter(tree)
         recyclerView.adapter = contactsAdapter
+        //响应假搜索控件的单击事件，显示搜索页面
+        val searchViewStub=v.findViewById(R.id.searchViewStub) as View
+        searchViewStub.setOnClickListener{
+            val intent = Intent(context,SearchActivity::class.java)
+            startActivity(intent)
+        }
         return v
     }
 }
