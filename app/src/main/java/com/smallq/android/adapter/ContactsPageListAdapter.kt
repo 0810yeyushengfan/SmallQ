@@ -1,5 +1,6 @@
 package com.smallq.android.adapter
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.niuedu.ListTree
 import com.niuedu.ListTreeAdapter
+import com.smallq.android.ChatActivity
 //import com.niuedu.ListTree
 //import com.niuedu.ListTreeAdapter
 import com.smallq.android.R
@@ -94,6 +96,18 @@ class ContactsPageListAdapter(tree: ListTree?) :
         var textViewTitle: TextView = itemView.findViewById(R.id.textViewTitle)
         //显示好友状态的控件
         var textViewDetail: TextView = itemView.findViewById(R.id.textViewDetail)
+        init {
+            //当单击这一行时，开始聊天
+            itemView.setOnClickListener{
+                //进入聊天页面
+                val intent = Intent(itemView.context,ChatActivity::class.java)
+                //将对方的名字作为参数传过去
+                val node=tree.getNodeByPlaneIndex(adapterPosition)
+                val info=node.data as ContactInfo
+                intent.putExtra("contact_name",info.name)
+                itemView.context.startActivity(intent)
+            }
+        }
 
     }
 }
