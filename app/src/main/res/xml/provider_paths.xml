@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+<!--    path是external-path对应的路径之内的文件夹，name是它被映射成的名字，也就是在content://...中的名字，这样在Uri中就看不到实际的名字了。-->
+    <external-path name="img" path="DCIM"/>
+</paths>

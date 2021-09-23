@@ -3,6 +3,7 @@ package com.smallq.android
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.TestLooperManager
+import android.text.Editable
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup

@@ -1,5 +1,6 @@
 package com.smallq.android
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -38,19 +39,19 @@ class LoginFragment : Fragment() {
             }
             binding.layoutHistory.addView(layoutItem)
         }
-            binding.textViewHistory.setOnClickListener {
-                if(binding.layoutHistory.visibility==View.INVISIBLE) {
-                    binding.layoutContext.visibility = View.INVISIBLE
-                    binding.layoutHistory.visibility = View.VISIBLE
-                    //使用动画显示历史记录
-                    val set=AnimationUtils.loadAnimation(context,R.anim.login_history_anim) as AnimationSet
-                    binding.layoutHistory.startAnimation(set)
-                } else{
-                    binding.layoutHistory.visibility=View.INVISIBLE
-                    binding.layoutContext.visibility=View.VISIBLE
-                }
-
+        binding.textViewHistory.setOnClickListener {
+            if(binding.layoutHistory.visibility==View.INVISIBLE) {
+                binding.layoutContext.visibility = View.INVISIBLE
+                binding.layoutHistory.visibility = View.VISIBLE
+                //使用动画显示历史记录
+                val set=AnimationUtils.loadAnimation(context,R.anim.login_history_anim) as AnimationSet
+                binding.layoutHistory.startAnimation(set)
+            } else{
+                binding.layoutHistory.visibility=View.INVISIBLE
+                binding.layoutContext.visibility=View.VISIBLE
             }
+
+        }
 
         view.setOnClickListener{
             if(binding.layoutHistory.visibility==View.VISIBLE){
@@ -58,6 +59,7 @@ class LoginFragment : Fragment() {
                 binding.layoutContext.visibility=View.VISIBLE
             }
         }
+        //登录成功
         binding.buttonLogin.setOnClickListener{
             val fragmentManager=activity!!.supportFragmentManager
             val fragment=MainFragment()
@@ -67,6 +69,12 @@ class LoginFragment : Fragment() {
             //将这次切换放入后退栈中，这样可以在单击后退键时自动返回上一个页面
             fragmentTransaction.addToBackStack("login")
             fragmentTransaction.commit()
+        }
+        //进入注册页面
+        binding.textViewRegister.setOnClickListener{
+            //启动注册Activity
+            val intent= Intent(context,RegisterActivity::class.java)
+            startActivity(intent)
         }
     }
 
