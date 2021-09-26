@@ -24,7 +24,7 @@ class ContactsPageListAdapter(tree: ListTree?) :
 
     //存放联系人数据
     data class ContactInfo(
-        val avatarURL: Bitmap,//头像
+        val avatarURL: String,//头像
         val name: String,  //名字
         val status: String //状态
     )
@@ -68,7 +68,7 @@ class ContactsPageListAdapter(tree: ListTree?) :
                 //是群组中的子项child节点
                 val info=node.data as ContactInfo
                 val contactViewHolder=viewHoler as ContactViewHolder
-                contactViewHolder.imageViewHead.setImageBitmap(info.avatarURL)
+//                contactViewHolder.imageViewHead.setImageBitmap(info.avatarURL)
                 contactViewHolder.textViewTitle.setText(info.name)
                 contactViewHolder.textViewDetail.setText(info.status)
             }

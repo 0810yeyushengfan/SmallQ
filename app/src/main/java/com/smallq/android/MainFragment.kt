@@ -267,9 +267,9 @@ class MainFragment :Fragment(){
         //头像
         var bitmap=BitmapFactory.decodeResource(resources,R.drawable.contacts_normal)
         //联系人1
-        val contact1=ContactsPageListAdapter.ContactInfo(bitmap,"沐雨橙风","[在线],我是苏沐橙")
+        val contact1=ContactsPageListAdapter.ContactInfo("","沐雨橙风","[在线],我是苏沐橙")
         //联系人2
-        val contact2= ContactsPageListAdapter.ContactInfo(bitmap,"一叶知秋","[离线]我是叶修")
+        val contact2= ContactsPageListAdapter.ContactInfo("","一叶知秋","[离线]我是叶修")
         //向树中添加组，组是树的根节点，它们的父结点为null
         //添加两个联系人
         if(tree.size()==0){//因为tree是MainFragment的伙伴对象(静态变量)，所以要先判断是否已经初始化过tree，如果tree中有节点，证明已经初始化过一次，不必再添加节点

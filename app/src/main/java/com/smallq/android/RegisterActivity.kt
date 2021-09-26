@@ -1,5 +1,6 @@
 package com.smallq.android
 
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.TextView
@@ -15,11 +17,23 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.snackbar.Snackbar
+import com.smallq.android.adapter.ContactsPageListAdapter
 import com.smallq.android.databinding.ActivityRegisterBinding
-import java.io.File
-import java.io.FileNotFoundException
-import java.io.IOError
-import java.io.IOException
+import io.reactivex.Observer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
+import java.io.*
+import java.lang.Exception
+import java.lang.RuntimeException
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.jar.Manifest
@@ -27,6 +41,11 @@ import java.util.zip.Inflater
 import kotlin.collections.ArrayList
 
 class RegisterActivity : AppCompatActivity() {
+    //使用Retrofit库
+    private var retrofit:Retrofit?=null
+    private var chatService:ChatService?=null
+    //停止订阅
+    private var disposable:Disposable?=null
     //视图绑定
     lateinit var binding:ActivityRegisterBinding
     //定义伴随对象，相当于java中的static
@@ -102,6 +121,73 @@ class RegisterActivity : AppCompatActivity() {
             sheetDialog!!.setContentView(view)
             sheetDialog!!.show()
         }
+
+        //创建Retrofit对象
+        retrofit= Retrofit.Builder()
+//            .baseUrl("http://10.0.2.2:8080")//在虚拟机中运行
+            .baseUrl("http://192.168.31.9:8080")//在我的手机中运行
+            //本来接口方法返回的是Call，由于现在返回类型变成了Observable，所以必须设置Call适配器将Observable与Call结合起来
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            //Json数据自动转换
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        //创建Service代理对象
+        chatService=retrofit?.create(ChatService::class.java)
+        //单击了提交按钮，注册之
+        binding.content.buttonCommit.setOnClickListener{ view->
+            //产生文件Part
+            val filePart=createFilePart()
+            //产生文本Part
+            val name=binding.content.editTextName.text.toString()
+            val password=binding.content.editTextPassword.text.toString()
+            //从Retrofit中获取RxJava observable对象
+            val observable=chatService?.requestRegister(filePart!!,name,password)
+            //设置数据转换回调
+            observable!!.map {
+                if(it.retCode===0){
+                    //返回的是一个ContactsPageListAdapter.ContactInfo类型的数据
+                    it.data!!
+                }else{
+                    throw RuntimeException(it.errMsg)
+                }
+            }.subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object :Observer<ContactsPageListAdapter.ContactInfo>{
+                    override fun onSubscribe(d: Disposable) {
+                        this@RegisterActivity.disposable=d
+                    }
+
+                    override fun onNext(t: ContactsPageListAdapter.ContactInfo) {
+                        //提示用户注册成功
+                        Snackbar.make(view,"注册成功!",Snackbar.LENGTH_LONG).setAction("Action",null).show()
+                        //关闭Activity，返回OK
+                        val intent=Intent()
+                        setResult(Activity.RESULT_OK)
+                        finish()
+                    }
+
+                    override fun onError(e: Throwable) {
+                        //在这里捕获各种异常，提示错误信息
+                        val errmsg=e.localizedMessage
+                        Snackbar.make(view,"好像来到了知识的荒原:"+errmsg!!,Snackbar.LENGTH_LONG).setAction("Action",null).show()
+                        Log.e("qqserver",e.localizedMessage!!)
+                    }
+
+                    override fun onComplete() {
+
+                    }
+
+                })
+        }
+    }
+
+    override fun onStop() {
+        this.disposable?.let {
+            if(!it.isDisposed){
+                it.dispose()//停止订阅
+            }
+        }
+        super.onStop()
     }
 
     private fun showTakePhotoView(){
@@ -137,6 +223,25 @@ class RegisterActivity : AppCompatActivity() {
         return outputFile
         }
 
+    //产生MultiPart表单中的一个Part
+    private fun createFilePart():MultipartBody.Part?{
+        if(imageUri==null){
+            //必须有一个Part才行，所以创建一个
+            return MultipartBody.Part.createFormData("none","none")
+        }
+        var inputStream:InputStream?=null
+        var data:ByteArray?=null
+        try{
+            inputStream=contentResolver.openInputStream(imageUri!!)
+            data= ByteArray(inputStream!!.available())
+            inputStream.read(data)
+        }catch (e:Exception){
+            e.printStackTrace()
+            return null
+        }
+        val requestFile=data.toRequestBody("application/otcet-stream".toMediaTypeOrNull())
+        return MultipartBody.Part.createFormData("file","png",requestFile)
+    }
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         when (requestCode) {
             ASK_PERMISSIONS -> {

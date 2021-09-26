@@ -13,6 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.smallq.android.adapter.ContactsPageListAdapter
 import com.smallq.android.databinding.ActivitySearchBinding
 import com.smallq.android.databinding.ContactsPageLayoutBinding
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
 class SearchActivity : AppCompatActivity() {
     //视图绑定
@@ -32,9 +35,9 @@ class SearchActivity : AppCompatActivity() {
         }
 
         override fun onBindViewHolder(holder: ResultListAdapter.MyViewHolder, position: Int) {
-           //获取联系人信息，设置到相应的控件中
+            //获取联系人信息，设置到相应的控件中
             val info=searchResultList.get(position) as MyContactInfo
-            holder.imageViewHead.setImageBitmap(info.info.avatarURL)
+//            holder.imageViewHead.setImageBitmap(info.info.avatarURL)
             holder.textViewName.setText(info.info.name)
             holder.textViewDetail.setText("来自分组"+info.groupName)
         }
@@ -58,8 +61,6 @@ class SearchActivity : AppCompatActivity() {
         setContentView(view)
         //设置搜索
         initSearching()
-
-
     }
     //设置搜索相关的东西
     private fun initSearching(){
